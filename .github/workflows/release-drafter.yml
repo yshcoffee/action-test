@@ -1,0 +1,15 @@
+name: Release Drafter
+on:
+  push:
+    tags:
+      - v*
+jobs:
+  update_release_draft:
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: release-drafter/release-drafter@v5
+        with:
+          config-name: release-drafter-config.yml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
