@@ -3,6 +3,7 @@ on:
   pull_request:
     types:
       - reopened
+      - synchronize
   push:
     branches:
       - master
