@@ -1,10 +1,6 @@
 name: Release Drafter
 on:
   pull_request:
-    types:
-      - opened
-      - closed
-      - edited
   push:
     branches:
       - master
