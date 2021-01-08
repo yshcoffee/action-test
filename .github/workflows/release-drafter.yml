@@ -1,14 +1,14 @@
 name: Release Drafter
 on:
-  pull_request:
-    types:
-      - reopened
-      - synchronize
   push:
     branches:
       - master
     tags:
       - v*
+  pull_request:
+    types:
+      - closed
+      - synchronize
 jobs:
   update_release_draft:
     if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
