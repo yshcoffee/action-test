@@ -5,8 +5,10 @@ on:
       - master
     tags:
       - v*
+  pull_request:
 jobs:
   update_release_draft:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     runs-on: ubuntu-18.04
     steps:
       - uses: release-drafter/release-drafter@v5
