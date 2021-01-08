@@ -13,3 +13,7 @@ jobs:
           config-name: release-drafter-config.yml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: test
+        env: 
+          GITHUB_REF: ${{ github.ref }}
+        run: echo $GITHUB_REF
