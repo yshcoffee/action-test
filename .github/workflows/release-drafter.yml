@@ -11,7 +11,7 @@ on:
       - synchronize
   release:
     types:
-      - published
+      - released
     
 jobs:
   update_release_draft:
@@ -28,18 +28,12 @@ jobs:
           GITHUB_BASE_REF: ${{ github.event.release.tag_name }}
         run: echo $GITHUB_BASE_REF
   deploy-release:
-    if: startsWith(github.ref, 'refs/tags/v')
-    needs: [test_gen, test_verify, test_unit, test_lint, test_crd]
+    if: startsWith(github.event.release.tag_name, 'v')
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
       - name: build
-        run: |
-          docker login -u=tmaxcloudck -p=${{ secrets.DOCKER_HUB_PASSWORD }}
-          REPO=tmaxcloudck/registry-operator
-          IMG=${REPO}:${GITHUB_REF#refs/tags/}
-          docker build . -t ${IMG}
-          docker tag ${IMG} ${REPO}:latest
-          docker push ${IMG}
-          docker push ${REPO}:latest
+        env: 
+          GITHUB_BASE_REF: ${{ github.event.release.tag_name }}
+        run: echo $GITHUB_BASE_REF
 
