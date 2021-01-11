@@ -35,5 +35,7 @@ jobs:
       - name: build
         env: 
           GITHUB_BASE_REF: ${{ github.event.release.tag_name }}
-        run: echo $GITHUB_BASE_REF
+        run: |
+          echo $GITHUB_REF
+          echo ${GITHUB_REF#refs/tags/}
 
